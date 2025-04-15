@@ -45,6 +45,8 @@ pip install -r requirements.txt
 
 ### 3. Add Your Google API Credentials
 Create a file at .streamlit/secrets.toml and paste your Google service account credentials like this:
+
+```toml
 [gcp_service_account]
 type = "service_account"
 project_id = "your-project"
@@ -56,7 +58,10 @@ auth_uri = "https://accounts.google.com/o/oauth2/auth"
 token_uri = "https://oauth2.googleapis.com/token"
 auth_provider_x509_cert_url = "https://www.googleapis.com/oauth2/v1/certs"
 client_x509_cert_url = "https://www.googleapis.com/robot/v1/metadata/x509/..."
+
 🔐 Your .streamlit/secrets.toml is used by Streamlit to authenticate with Google Sheets.
+> **This file should _not_ be committed to Git.**  
+> Add `.streamlit/secrets.toml` to your `.gitignore`.  
 
 ### 4. Run the App
 streamlit run app.py
