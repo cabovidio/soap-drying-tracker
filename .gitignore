@@ -1,0 +1,13 @@
+# Ignore Google Sheets secrets
+.streamlit/secrets.toml
+
+# VSCode/Codespaces
+.vscode/
+__pycache__/
+*.pyc
+
+# Jupyter (if used)
+.ipynb_checkpoints/
+
+# OS junk
+.DS_Store
