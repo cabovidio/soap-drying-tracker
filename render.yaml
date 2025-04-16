@@ -2,7 +2,7 @@ services:
   - type: web
     name: trackmysoap
     env: python
-    plan: free
+    plan: starter
     startCommand: streamlit run app.py --server.port=$PORT
     buildCommand: pip install -r requirements.txt
     envVars:
