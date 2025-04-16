@@ -9,5 +9,5 @@ services:
       - key: PORT
         value: 10000
     secretFiles:
-      - name: gcp_secrets
-        path: /opt/render/project/src/.streamlit/secrets.toml
+      - name: secrets
+        path: .streamlit/secrets.toml
