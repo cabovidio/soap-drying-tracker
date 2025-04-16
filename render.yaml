@@ -10,4 +10,4 @@ services:
         value: 10000
     secretFiles:
       - name: secrets
-        path: .streamlit/secrets.toml
+        path: /opt/render/project/src/.streamlit/secrets.toml
