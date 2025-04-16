@@ -27,6 +27,8 @@ components.html("""
         if (toggle) toggle.click();
     }
     </script>
+    <link rel="manifest" href="/public/manifest.json">
+    <link rel="icon" type="image/png" sizes="512x512" href="/public/favicon.png">
 """, height=0)
 
 

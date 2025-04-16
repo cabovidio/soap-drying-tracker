@@ -1,0 +1,16 @@
+{
+    "name": "TrackMySoap",
+    "short_name": "TrackMySoap",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6db3a0",
+    "icons": [
+      {
+        "src": "/public/favicon.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ]
+  }
+  
