@@ -16,6 +16,7 @@ import matplotlib.pyplot as plt
 import math
 import streamlit.components.v1 as components
 
+st.write("✅ Secrets loaded:", st.secrets.get("gcp_service_account", "❌ Not found"))
 
 # Clicks the “☰” menu toggle if it’s visible (collapsed) so it ensures the sidebar is shown on page load
 components.html("""
