@@ -1,4 +1,12 @@
 import streamlit as st
+st.set_page_config(
+    page_title="Soap Drying Tracker",
+    page_icon="🧼",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Now import everything else
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
@@ -6,9 +14,21 @@ import altair as alt
 from graphing import plot_retained_weight_from_gs
 import matplotlib.pyplot as plt
 import math
+import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Soap Tracker", layout="wide")
-st.title("🧼 Soap Drying Tracker")
+
+# Clicks the “☰” menu toggle if it’s visible (collapsed) so it ensures the sidebar is shown on page load
+components.html("""
+    <script>
+    window.onload = function() {
+        const sidebar = window.parent.document.querySelector("section[data-testid='stSidebar']");
+        if (sidebar) sidebar.style.display = 'block';
+        const toggle = window.parent.document.querySelector("button[title='Open sidebar']");
+        if (toggle) toggle.click();
+    }
+    </script>
+""", height=0)
+
 
 # Google Sheets auth
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
@@ -23,11 +43,11 @@ readings = sheet.worksheet("Weight Readings")
 # Sidebar menu
 st.sidebar.title("📋 Menu")
 page = st.sidebar.radio("Choose an action", [
+    "Overview",
     "View Soap Details",
     "Add Weight Reading",
     "Create New Soap",
-    "Delete a Soap",
-    "View Graphs"
+    "Delete a Soap"
 ])
 
 # Helper function to get soap labels
@@ -221,7 +241,7 @@ elif page == "View Soap Details":
 
 
 # View Graphs
-elif page == "View Graphs":
+elif page == "Overview":
     st.subheader("📊 Weight Curves")
  
     plot_retained_weight_from_gs(readings,batches)
