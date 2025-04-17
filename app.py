@@ -19,7 +19,6 @@ import os
 import json
 from oauth2client.service_account import ServiceAccountCredentials
 
-st.write("✅ Secrets loaded:", st.secrets.get("gcp_service_account", "❌ Not found"))
 
 # Clicks the “☰” menu toggle if it’s visible (collapsed) so it ensures the sidebar is shown on page load
 components.html("""
