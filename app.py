@@ -14,8 +14,10 @@ import altair as alt
 from graphing import plot_retained_weight_from_gs
 import matplotlib.pyplot as plt
 import math
-import streamlit.components.v1 as components
+import streamlit.components.v1 as components]
+import os
 import json
+from oauth2client.service_account import ServiceAccountCredentials
 
 st.write("✅ Secrets loaded:", st.secrets.get("gcp_service_account", "❌ Not found"))
 
@@ -34,14 +36,10 @@ components.html("""
 """, height=0)
 
 
-# Google Sheets auth
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
 
-# Convert TOML values into valid JSON dict, fixing the key
-gcp_secret = dict(st.secrets["gcp_service_account"])
-gcp_secret["private_key"] = gcp_secret["private_key"].replace("\\n", "\n")
-
-# Now use it to authorize
+# Load from environment variable and parse JSON
+gcp_secret = json.loads(os.environ["GCP_CREDS"])
 creds = ServiceAccountCredentials.from_json_keyfile_dict(gcp_secret, scope)
 
 client = gspread.authorize(creds)
