@@ -14,7 +14,7 @@ import altair as alt
 from graphing import plot_retained_weight_from_gs
 import matplotlib.pyplot as plt
 import math
-import streamlit.components.v1 as components]
+import streamlit.components.v1 as components
 import os
 import json
 from oauth2client.service_account import ServiceAccountCredentials
