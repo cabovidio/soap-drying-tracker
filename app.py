@@ -107,11 +107,29 @@ elif page == "Add Weight Reading":
     labels, soap_rows = get_soap_labels()
     if labels:
         selected = st.selectbox("Select Soap", labels)
+        name, batch = selected.split(" (Batch ")
+        batch = batch.rstrip(")")
+
+        # Load readings into a DataFrame
+        reading_df = pd.DataFrame(readings.get_all_records())
+        reading_df["Date"] = pd.to_datetime(reading_df["Date"], errors="coerce")
+        reading_df["Weight (g)"] = pd.to_numeric(reading_df["Weight (g)"], errors="coerce")
+
+        # Filter readings for the selected soap
+        soap_readings = reading_df[
+            (reading_df["Soap Name"] == name) & (reading_df["Batch #"] == batch)
+        ].sort_values("Date")
+
+        if not soap_readings.empty:
+            last_weight = soap_readings["Weight (g)"].iloc[-1]
+            last_date = soap_readings["Date"].iloc[-1].strftime("%Y-%m-%d")
+            st.markdown(f"**📏 Last Recorded Weight**: {last_weight:.1f} g on {last_date}")
+        else:
+            st.markdown("No previous readings found.")
+
         date = st.date_input("Reading Date")
         weight = st.number_input("Reading Weight (g)", min_value=0.0)
         if st.button("Add Reading"):
-            name, batch = selected.split(" (Batch ")
-            batch = batch.rstrip(")")
             readings.append_row([name, batch, date.strftime("%Y-%m-%d"), weight])
             st.success("✅ Reading added.")
     else:
