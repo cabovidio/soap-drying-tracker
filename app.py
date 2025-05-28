@@ -121,8 +121,9 @@ elif page == "Add Weight Reading":
         ].sort_values("Date")
 
         if not soap_readings.empty:
-            last_weight = soap_readings["Weight (g)"].iloc[-1]
-            last_date = soap_readings["Date"].iloc[-1].strftime("%Y-%m-%d")
+            latest = soap_readings.sort_values("Date", ascending=False).iloc[0]
+            last_weight = latest["Weight (g)"]
+            last_date = latest["Date"].strftime("%Y-%m-%d")
             st.markdown(f"**📏 Last Recorded Weight**: {last_weight:.1f} g on {last_date}")
         else:
             st.markdown("No previous readings found.")
