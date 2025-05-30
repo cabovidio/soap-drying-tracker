@@ -112,7 +112,7 @@ elif page == "Add Weight Reading":
 
         # Load readings into a DataFrame
         reading_df = pd.DataFrame(readings.get_all_records())
-        reading_df["Date"] = pd.to_datetime(reading_df["Date"], errors="coerce")
+        reading_df["Date"] = pd.to_datetime(reading_df["Date"], dayfirst=True, errors="coerce")
         reading_df["Weight (g)"] = pd.to_numeric(reading_df["Weight (g)"], errors="coerce")
 
         # Filter readings for the selected soap
