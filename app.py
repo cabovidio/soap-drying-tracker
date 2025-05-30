@@ -112,7 +112,7 @@ elif page == "Add Weight Reading":
 
         # Load readings into a DataFrame
         reading_df = pd.DataFrame(readings.get_all_records())
-        reading_df["Date"] = pd.to_datetime(reading_df["Date"], dayfirst=True, errors="coerce")
+        reading_df["Date"] = pd.to_datetime(reading_df["Date"], errors="coerce")
         reading_df["Weight (g)"] = pd.to_numeric(reading_df["Weight (g)"], errors="coerce")
 
         # Filter readings for the selected soap
@@ -129,10 +129,13 @@ elif page == "Add Weight Reading":
             st.markdown("No previous readings found.")
 
         date = st.date_input("Reading Date")
-        weight = st.number_input("Reading Weight (g)", min_value=0.0)
+        weight = st.number_input("Reading Weight (g)", min_value=0.0, value=None, key="weight_input")
         if st.button("Add Reading"):
             readings.append_row([name, batch, date.strftime("%Y-%m-%d"), weight])
             st.success("✅ Reading added.")
+
+            # Reset the weight input by rerunning the app
+            st.experimental_rerun()
     else:
         st.info("No soaps found. Create one first.")
 
